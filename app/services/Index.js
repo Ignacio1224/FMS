@@ -6,19 +6,21 @@ const jwt = require('jwt-simple');
 const moment = require('moment');
 const secretToken = require('../../config/general').SECRET_TOKEN;
 const utilities = require('../utilities/utilities');
+const Nodemailer = require('nodemailer');
+const emailConfig = require('../../config/mail').transporter;
 
 
 /**
  * createToken
- * @param {User} user
+ * @param {String} str
  * @returns {JWT}
- * @description Creates a token based on the encoded user._id 
+ * @description Creates a token based on str 
  */
-function createToken(user) {
-    const encodedUserId = utilities.encode(user._id);
+function createToken(str) {
+    const encodedStr = utilities.encode(str);
     
     const payload = {
-        sub: encodedUserId,
+        sub: encodedStr,
         iat: moment().unix(),
         exp: moment().add(14, 'days').unix(),
     }
@@ -44,8 +46,8 @@ function decodeToken(token) {
                 });
             }
 
-            const decodedUserId = utilities.decode(payload.sub);
-            resolve(decodedUserId);
+            const decodedStr = utilities.decode(payload.sub);
+            resolve(decodedStr);
 
         } catch (error) {
             reject({
@@ -59,9 +61,32 @@ function decodeToken(token) {
 }
 
 
+function sendMail(to, subject, message, is_html = false) {
+    let transporter = Nodemailer.createTransport(emailConfig);
+
+    let html = null, text = null;
+
+    if (is_html) {
+        html = message;
+    } else {
+        text = message;
+    }
+
+    let info = transporter.sendMail({
+        from: '"IgnoDB" <ignodb@myapp.com>',
+        to: to, 
+        subject,
+        text,
+        html,
+    });
+
+    return info;
+}
+
 
 module.exports = {
     createToken,
-    decodeToken
+    decodeToken,
+    sendMail
 };
 

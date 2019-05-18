@@ -104,6 +104,23 @@ function isNullOrEmpty(value) {
 
 
 /**
+ * makeCode
+ * @param {Number} length 
+ * @returns {String}
+ * @description Generates a random code
+ */
+function makeCode(length) {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
+
+
+/**
  * searchInArray
  * @param {*} element 
  * @param {Array} array
@@ -118,10 +135,11 @@ function searchInArray(element, array) {
 
 
 module.exports = {
-    isNullOrEmpty,
-    searchInArray,
-    findObjectByKey,
     decode,
-    encode
+    encode,
+    findObjectByKey,
+    isNullOrEmpty,
+    makeCode,
+    searchInArray
 }
 

@@ -52,12 +52,6 @@ ViewedSchema.index({
     unique: true 
 });
 
-// ViewedSchema.path('_userId').validate(function (v) {
-//     return this._userId == this._filmId;
-// }, 'userId and filmId can not be the same');
-
-// ViewedSchema.path('_filmId').validate(function (v) {
-//     return v === this._userId;
-// });
 
 module.exports = mongoose.model('Viewed', ViewedSchema);
+

@@ -9,6 +9,7 @@ let mongoDB = require('./general').DATA_BASE;
 
 mongoose.connect(mongoDB, {useNewUrlParser: true});
 mongoose.set('useCreateIndex', true);
+mongoose.set('useFindAndModify', false);
 const db = mongoose.connection;
 
 db.on("error", () => {return false});
