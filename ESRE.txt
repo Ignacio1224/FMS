@@ -1,0 +1,10 @@
+Especificacion de Requerimientos
+
+Módulo 'Usuario'
+    De los usuarios se almacenará:
+        userName, password, email, lastLogin, signupDate, userRole, profilePicture
+    Se tendrán que validar que los campos no sean nulos.
+     
+
+Módulo 'Films'
+    Debe ser capaz de almacenar las peliculas vistas por el usuario.

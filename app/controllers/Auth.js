@@ -2,7 +2,6 @@
 
 'use strict';
 
-const mongoose = require('mongoose');
 const Service = require('../services/Index');
 const Utilities = require('../utilities/utilities');
 const User = require('../models/User');
@@ -55,15 +54,14 @@ function passwordReset(req, res) {
             const url = `http://localhost:1224${req.originalUrl}_done/${tokenToSend}`;
 
             Service.sendMail(user.userEmail, 'Password reset', mail.resetPasswordRequestTemlate(user.userName, url), true)
-            .then(() => {
-                res.status(200).send({
-                    message: 'The reset code was sended to the registered email!',
-                });
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-            ;
+                .then(() => {
+                    res.status(200).send({
+                        message: 'The reset code was sended to the registered email!',
+                    });
+                })
+                .catch((err) => {
+                    console.log(err);
+                });;
 
         });
 
@@ -197,8 +195,8 @@ function signIn(req, res) {
             }
         ]
     }, (err, user) => {
-
-        if (err) return res.status(500).se / nd({
+        
+        if (err) return res.status(500).send({
             message: err
         });
 
@@ -214,12 +212,22 @@ function signIn(req, res) {
                 message: 'Incorrect password!'
             });
 
-            user.userPassword = undefined;
-            req.user = user;
 
-            res.status(200).send({
-                message: 'Logged successfully',
-                token: Service.createToken(user._userId)
+            user.lastLogin = new Date();
+            
+            user.save((err, user) => {
+                if (err) return res.status(500).send({
+                    message: 'Could not login ' + err
+                });
+
+                user.userPassword = undefined;
+                req.user = user;
+
+                res.status(200).send({
+                    message: 'Logged successfully',
+                    token: Service.createToken(user._userId)
+                });
+
             });
         });
     });
