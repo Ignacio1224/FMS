@@ -4,7 +4,7 @@
 'use strict';
 
 /* User Model */
-const User = require('../models/User');
+const User = require('../models/User/User');
 
 /* Excluded URLS */
 const excludedURLS = require('../../config/general').EXCLUDED_URLS;

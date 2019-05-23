@@ -1,16 +1,15 @@
 /* Auth Controller */
 
+
 'use strict';
 
-const Service = require('../services/Index');
-const Utilities = require('../utilities/utilities');
-const User = require('../models/User');
-const PasswordReset = require('../models/PasswordReset');
-const mail = require('../../config/mail');
+const Service = require('../../services/Index');
+const Utilities = require('../../utilities/utilities');
+const User = require('../../models/User/User');
+const PasswordReset = require('../../models/User/PasswordReset');
+const mail = require('../../../config/mail');
 
 function passwordReset(req, res) {
-    console.log('\nPOST --> /ignodb/reset_password');
-    console.log(req.body);
 
     User.findOne({
         $or: [{
@@ -21,6 +20,7 @@ function passwordReset(req, res) {
             }
         ]
     }, (err, user) => {
+
         if (err) return res.status(500).send({
             message: err
         });
@@ -28,7 +28,6 @@ function passwordReset(req, res) {
         if (!user) return res.status(404).send({
             message: 'User does not exist'
         });
-
 
         const code = Utilities.makeCode(6);
 
@@ -45,6 +44,7 @@ function passwordReset(req, res) {
         }).deleteOne().exec();
 
         pwdReset.save((err, pwdReset) => {
+
             if (err) {
                 return res.status(500).send({
                     message: `Error, make the trsnsaction: ${err}`
@@ -70,17 +70,17 @@ function passwordReset(req, res) {
 }
 
 function passwordResetDone(req, res) {
-    console.log('\nPOST --> /ignodb/reset_password_done');
-    console.log(req.body);
 
     Service.decodeToken(req.params.token)
         .then((response) => {
+
             const code = response.split('#$')[0];
             const _userId = response.split('#$')[1];
 
             PasswordReset.findOne({
                 _userId
             }, (err, prd) => {
+
                 if (err) {
                     return res.status(500).send({
                         message: `Error, could'nt make the trsnsaction: ${err}`
@@ -141,10 +141,15 @@ function passwordResetDone(req, res) {
                             res.status(200).send({
                                 message: 'Password changed!'
                             });
+
                         });
+
                     });
+
                 });
+
             });
+
         }).catch((response) => {
 
             PasswordReset.find({
@@ -160,8 +165,6 @@ function passwordResetDone(req, res) {
 }
 
 function signUp(req, res) {
-    console.log('\nPOST --> /ignodb/signup');
-    console.log(req.body);
 
     let user = new User();
     user.userName = req.body.userName;
@@ -170,6 +173,7 @@ function signUp(req, res) {
     user.userRole = 'Common';
 
     user.save((err, user) => {
+
         if (err) {
             return res.status(500).send({
                 message: `Error, couldn't save the user: ${err}`
@@ -179,12 +183,12 @@ function signUp(req, res) {
         res.status(200).send({
             token: Service.createToken(user._userId)
         });
+
     });
+
 }
 
 function signIn(req, res) {
-    console.log('\nPOST --> /ignodb/signIn');
-    console.log(req.body);
 
     User.findOne({
         $or: [{
@@ -204,8 +208,8 @@ function signIn(req, res) {
             message: 'User does not exist'
         });
 
-
         user.comparePassword(req.body.userPassword, function (err, isMatch) {
+
             if (err) throw err;
 
             if (!isMatch) return res.status(400).send({
@@ -229,8 +233,11 @@ function signIn(req, res) {
                 });
 
             });
+            
         });
+
     });
+
 }
 
 

@@ -14,19 +14,19 @@ routes.use(perms);
 
 
 /* Auth Route */
-const auth = require('./Auth');
+const auth = require('./User/Auth');
 routes.use('/', auth);
 
 /* User Route */
-const user = require('./User');
+const user = require('./User/User');
 routes.use('/user', user);
 
 /* Film Route */
-const film = require('./Film');
+const film = require('./Film/Film');
 routes.use('/film', film);
 
 /* Viewed Route */
-const viewed = require('./Viewed');
+const viewed = require('./Film/Viewed');
 routes.use('/viewed', viewed);
 
 module.exports = routes;

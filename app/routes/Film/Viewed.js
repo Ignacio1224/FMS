@@ -7,10 +7,8 @@
 const api = require('express').Router();
 
 /* ViewedController */
-const ViewedController = require('../controllers/Viewed');
+const ViewedController = require('../../controllers/Film/Viewed');
 
-/* Auth Middleware */
-const auth = require('../middlewares/Auth');
 
 api.delete('/:viewedId', ViewedController.deleteViewed);
 api.get('/', ViewedController.getVieweds);

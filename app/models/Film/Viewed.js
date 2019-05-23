@@ -4,7 +4,7 @@
 
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const FKHelper = require('./FKHelper');
+const FKHelper = require('../Utils/FKHelper');
 
 
 const ViewedSchema = Schema({

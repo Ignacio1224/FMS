@@ -3,17 +3,12 @@
 
 'use Strict';
 
+
 /* Router */
 const api = require('express').Router();
 
 /* FilmController */
-const FilmController = require('../controllers/Film');
-
-/* Auth Middleware */
-// const auth = require('../middlewares/Auth');
-
-/* Auth Middleware */
-// const permissions = require('../middlewares/Permissions');
+const FilmController = require('../../controllers/Film/Film');
 
 
 api.delete('/:filmId', FilmController.deleteFilm);
@@ -24,4 +19,3 @@ api.put('/:filmId', FilmController.updateFilm);
 
 
 module.exports = api;
-

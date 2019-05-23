@@ -93,12 +93,13 @@ PERMITS = {
 
 
 module.exports = {
-    SERVER_PORT: process.env.PORT || 1224,
-    DATA_BASE: `mongodb://127.0.0.1/IgnoDB`,
-    SECRET_TOKEN: `TokenOfIgnoDb1224`,
+    DATABASE: `mongodb://127.0.0.1/IgnoDB`,
+    ENCODE_CONSTANT: 24,
     EXCLUDED_URLS: [`/signIn`, `/signUp`, `/password_reset`, `/password_reset_done`],
-    PERMITS,
     PASSWORD_SALT: 12,
-    ENCODE_CONSTANT: 24
+    PERMITS,
+    SECRET_TOKEN: `TokenOfIgnoDb1224`,
+    SERVER_PORT: process.env.PORT || 1224,
+    SERVER_URL: `http://localhost`
 }
 

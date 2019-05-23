@@ -3,14 +3,12 @@
 
 'use Strict';
 
+
 /* Router */
 const api = require('express').Router();
 
 /* UserController */
-const UserController = require('../controllers/User');
-
-/* Auth Middleware */
-// const auth = require('../middlewares/Auth');
+const UserController = require('../../controllers/User/User');
 
 
 api.delete('/:userId', UserController.deleteUser);

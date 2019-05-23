@@ -4,9 +4,9 @@
 
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const FKHelper = require('./FKHelper');
+const FKHelper = require('../Utils/FKHelper');
 const bcrypt = require('bcrypt');
-const passwordSalt = require('../../config/general').PASSWORD_SALT;
+const passwordSalt = require('../../../config/general').PASSWORD_SALT;
 
 const PasswordResetSchema = Schema({
     _userId: {

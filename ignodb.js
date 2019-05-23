@@ -1,17 +1,17 @@
+/* SERVER */
+
+
 'use strict';
+
 
 const app = require('./config/server');
 const database = require('./config/dbconnection');
+const general = require('./config/general');
 
 // Connect to Database
-if (database) {
-    console.log('Connection established...');
-    
-    // Starting the server
-    app.listen(app.get('port'), () => {
-        console.log(`IgnoDB running on http>//localhost:${app.get('port')}`);
-    });
-} else {
-    console.log('Fail to connect!');
-}
+console.log(`Connection established on ${general.DATABASE}`);
 
+// Starting the server
+app.listen(app.get('port'), () => {
+    console.log(`IgnoDB running on ${general.SERVER_URL}:${app.get('port')}`);
+});
