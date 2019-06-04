@@ -17,12 +17,12 @@ const ENCODE = require('../../config/general').ENCODE_CONSTANT;
 function decode(str) {
     let decoded = '';
     const strSplitted = str.split(/-/);
-    
+
     for (let i = 0, l = strSplitted.length; i < l; i++) {
         const d = strSplitted[i].charCodeAt(0) - (ENCODE + i);
         decoded += `${String.fromCharCode(d)}`;
     }
-    
+
     return decoded;
 }
 
@@ -36,15 +36,15 @@ function decode(str) {
 function encode(str) {
     str = String(str);
     let encoded = '';
-    
+
     for (let i = 0, l = str.length; i < l; i++) {
         const c = str[i].charCodeAt(0) + ENCODE + i;
         encoded += `${String.fromCharCode(c)}`;
-        if (i < str.length-1) {
+        if (i < str.length - 1) {
             encoded += '-';
         }
     }
-    
+
     return encoded;
 }
 
@@ -67,6 +67,18 @@ function findObjectByKey(array, key, value) {
     }
 
     return (objects.length > 0) ? objects : null;
+}
+
+
+/**
+ * getRandom
+ * @param {Number} min 
+ * @param {Number} max 
+ * @returns {Number}
+ * @description Takes a random integer number
+ */
+function getRandom(min, max) {
+    return Math.ceil(Math.random() * (max - min) + min);
 }
 
 
@@ -138,6 +150,7 @@ module.exports = {
     decode,
     encode,
     findObjectByKey,
+    getRandom,
     isNullOrEmpty,
     makeCode,
     searchInArray

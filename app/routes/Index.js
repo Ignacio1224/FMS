@@ -29,5 +29,9 @@ routes.use('/film', film);
 const viewed = require('./Film/Viewed');
 routes.use('/viewed', viewed);
 
+/* Song Route */
+// const song = require('./Song/Song');
+// routes.use('/song', song);
+
 module.exports = routes;
 
